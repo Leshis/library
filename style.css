@@ -1,0 +1,20 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+}
+
+.library{
+    width: 80vw;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.book{
+    display: flex;
+    gap: 0.5rem;
+    border-radius: 5px;
+    background-color: beige;
+}
