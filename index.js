@@ -4,18 +4,20 @@ const newBookButton = document.getElementById('new-book');
 const modal = document.getElementById('modal');
 const bookForm = document.getElementById('book-form');
 
-function Book(title, author, pages, isRead) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
+class Book {
+    constructor(title, author, pages, isRead, isFavourite) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
+        this.isFavourite = isFavourite;
+    }
 
-    this.getReadMsg = function getReadMsg() {
-        if (isRead) {
-            return 'Finished reading';
-        }
-        return 'Not yet read';
-    };
+    getReadMsg = () => `${this.isRead ? 'Finished' : 'Not yet'} reading`;
+
+    toggleFavourite() {
+        this.isFavourite = !this.isFavourite;
+    }
 }
 
 function updateLibrary() {
@@ -27,13 +29,14 @@ function updateLibrary() {
                     ${book.title} by ${book.author}, ${book.pages} pages
                 </div>
                 <div class="isRead">${book.getReadMsg()}</div>
+                <div class="favourite ${book.isFavourite}">&#9733;</div>
             </div>
         `;
     });
 }
 
-function addBookToLibrary(title, author, pages, isRead) {
-    myLibrary.push(new Book(title, author, pages, isRead));
+function addBookToLibrary(title, author, pages, isRead, isFavourite) {
+    myLibrary.push(new Book(title, author, pages, isRead, isFavourite));
     updateLibrary();
 }
 
@@ -51,7 +54,8 @@ function handleSubmit(e) {
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
     const isRead = document.getElementById('is-read').checked;
-    addBookToLibrary(title, author, pages, isRead);
+    const isFavourite = document.getElementById('is-favourite').checked;
+    addBookToLibrary(title, author, pages, isRead, isFavourite);
     closeModal();
     e.target.reset();
 }
