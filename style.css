@@ -9,12 +9,17 @@ body{
 .library{
     width: 80vw;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
     padding: 1rem;
 }
 
 .book{
     display: flex;
+    width: 350px;
     gap: 0.5rem;
+    padding: 1rem;
     border-radius: 5px;
     background-color: beige;
 }
