@@ -1,5 +1,5 @@
 const myLibrary = [];
-// const bookEl = document.getElementById('book');
+const libraryEl = document.getElementById('library');
 const newBookButton = document.getElementById('new-book');
 const modal = document.getElementById('modal');
 const bookForm = document.getElementById('book-form');
@@ -13,9 +13,9 @@ function Book(title, author, pages, isRead) {
     let status = '';
 
     if (isRead) {
-        status = 'finished reading';
+        status = 'Finished reading';
     } else {
-        status = 'not yet read';
+        status = 'Not yet read';
     }
 
     this.info = function info() {
@@ -43,9 +43,33 @@ function handleSubmit(e) {
     const isRead = document.getElementById('is-read').checked;
     addBookToLibrary(title, author, pages, isRead);
     closeModal();
+    e.target.reset();
 }
+
+// function updateLibrary() {
+//     libraryEl.innerHTML = '';
+//     myLibrary.forEach((book) => {
+//         libraryEl.innerHTML += `
+//             <div class="book">
+//                 <div class="book-desc">
+//                     ${book.title} by ${book.author}, ${book.pages} pages
+//                 </div>
+//                 <div class="isRead">${book.status}</div>
+//             </div>
+//         `;
+//     });
+// }
 
 newBookButton.addEventListener('click', openModal);
 bookForm.addEventListener('submit', handleSubmit);
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, true);
+myLibrary.forEach((book) => {
+    libraryEl.innerHTML += `
+        <div class="book">
+            <div class="book-desc">
+                ${book.title} by ${book.author}, ${book.pages} pages
+            </div>
+            <div class="isRead">${book.status}</div>
+        </div>
+    `;
+});
