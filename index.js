@@ -10,21 +10,31 @@ function Book(title, author, pages, isRead) {
     this.pages = pages;
     this.isRead = isRead;
 
-    let status = '';
-
-    if (isRead) {
-        status = 'Finished reading';
-    } else {
-        status = 'Not yet read';
-    }
-
-    this.info = function info() {
-        return `${title} by ${author}, ${pages} pages, ${status}`;
+    this.getReadMsg = function getReadMsg() {
+        if (isRead) {
+            return 'Finished reading';
+        }
+        return 'Not yet read';
     };
+}
+
+function updateLibrary() {
+    libraryEl.innerHTML = '';
+    myLibrary.forEach((book) => {
+        libraryEl.innerHTML += `
+            <div class="book">
+                <div class="book-desc">
+                    ${book.title} by ${book.author}, ${book.pages} pages
+                </div>
+                <div class="isRead">${book.getReadMsg()}</div>
+            </div>
+        `;
+    });
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
     myLibrary.push(new Book(title, author, pages, isRead));
+    updateLibrary();
 }
 
 function openModal() {
@@ -46,30 +56,5 @@ function handleSubmit(e) {
     e.target.reset();
 }
 
-// function updateLibrary() {
-//     libraryEl.innerHTML = '';
-//     myLibrary.forEach((book) => {
-//         libraryEl.innerHTML += `
-//             <div class="book">
-//                 <div class="book-desc">
-//                     ${book.title} by ${book.author}, ${book.pages} pages
-//                 </div>
-//                 <div class="isRead">${book.status}</div>
-//             </div>
-//         `;
-//     });
-// }
-
 newBookButton.addEventListener('click', openModal);
 bookForm.addEventListener('submit', handleSubmit);
-
-myLibrary.forEach((book) => {
-    libraryEl.innerHTML += `
-        <div class="book">
-            <div class="book-desc">
-                ${book.title} by ${book.author}, ${book.pages} pages
-            </div>
-            <div class="isRead">${book.status}</div>
-        </div>
-    `;
-});
