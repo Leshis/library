@@ -41,10 +41,11 @@ button{
 }
 
 .library{
+    margin: 0 auto;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 1rem;
-    align-items: center;
+    gap: 2rem;
     padding: 1rem;
 }
 
