@@ -1,10 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { v4 as uuidv4 } from 'uuid';
-
 const myLibrary = [];
 const libraryEl = document.getElementById('library');
 const newBookButton = document.getElementById('new-book');
-const deleteButton = document.getElementById('delete');
+//  const deleteButton = document.getElementById('delete');
 const modal = document.getElementById('modal');
 const bookForm = document.getElementById('book-form');
 
@@ -14,21 +11,22 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.isRead = isRead;
-        this.uuid = uuidv4();
     }
 
-    getReadMsg = () => `${this.isRead ? 'Finished' : 'Not yet'} reading`;
-
-    toggleFavourite() {
-        this.isFavourite = !this.isFavourite;
-    }
+    getReadMsg = () => `${this.isRead ? 'Finished' : 'Not yet read'}`;
 }
 
 function updateLibrary() {
     libraryEl.innerHTML = '';
     myLibrary.forEach((book) => {
         libraryEl.innerHTML += `
-             ${book}
+            <div class="book" data-index="${myLibrary.indexOf(book)}">
+                <h2>${book.title}</h2>
+                <h4>${book.author}</h4>
+                <p>${book.pages} pages</p>
+                <p>${book.getReadMsg()}</p>
+                <button id="delete" class="delete-button">REMOVE</button>
+            </div>
         `;
     });
 }
@@ -46,10 +44,9 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-function handleDelete(e) {
-    console.log(e.target.id);
-    updateLibrary();
-}
+// function handleDelete(e) {
+//     console.log(e.target);
+// }
 
 function handleSubmit(e) {
     e.preventDefault();
@@ -59,9 +56,10 @@ function handleSubmit(e) {
     const isRead = document.getElementById('is-read').checked;
     addBookToLibrary(title, author, pages, isRead);
     closeModal();
+    updateLibrary();
     e.target.reset();
 }
 
 newBookButton.addEventListener('click', openModal);
-deleteButton.addEventListener('click', handleDelete);
+// deleteButton.addEventListener('click', handleDelete);
 bookForm.addEventListener('submit', handleSubmit);
