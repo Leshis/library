@@ -1,7 +1,6 @@
 const myLibrary = [];
 const libraryEl = document.getElementById('library');
 const newBookButton = document.getElementById('new-book');
-//  const deleteButton = document.getElementById('delete');
 const modal = document.getElementById('modal');
 const bookForm = document.getElementById('book-form');
 
@@ -25,10 +24,16 @@ function updateLibrary() {
                 <h4>${book.author}</h4>
                 <p>${book.pages} pages</p>
                 <p>${book.getReadMsg()}</p>
-                <button id="delete" class="delete-button">REMOVE</button>
+                <button class="delete-button" onclick="handleDelete(event, ${myLibrary.indexOf(book)})">REMOVE</button>
             </div>
         `;
     });
+}
+
+function handleDelete(e, index) {
+    const bookDiv = e.target.parentNode;
+    bookDiv.parentNode.removeChild(bookDiv);
+    myLibrary.splice(index, 1);
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
@@ -44,10 +49,6 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-// function handleDelete(e) {
-//     console.log(e.target);
-// }
-
 function handleSubmit(e) {
     e.preventDefault();
     const title = document.getElementById('title').value;
@@ -61,5 +62,4 @@ function handleSubmit(e) {
 }
 
 newBookButton.addEventListener('click', openModal);
-// deleteButton.addEventListener('click', handleDelete);
 bookForm.addEventListener('submit', handleSubmit);
