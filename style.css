@@ -60,6 +60,12 @@ button{
     background-color: rgb(216, 216, 216);
 }
 
+.read-button{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .modal{
     display: none;
 }

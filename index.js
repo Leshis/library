@@ -23,7 +23,10 @@ function updateLibrary() {
                 <h2>${book.title}</h2>
                 <h4>${book.author}</h4>
                 <p>${book.pages} pages</p>
-                <p>${book.getReadMsg()}</p>
+                <div class="read-button">
+                    <p>${book.getReadMsg()}</p>
+                    <button onclick="handleRead(${myLibrary.indexOf(book)})">READ</button>
+                </div>
                 <button class="delete-button" onclick="handleDelete(event, ${myLibrary.indexOf(book)})">REMOVE</button>
             </div>
         `;
@@ -34,6 +37,11 @@ function handleDelete(e, index) {
     const bookDiv = e.target.parentNode;
     bookDiv.parentNode.removeChild(bookDiv);
     myLibrary.splice(index, 1);
+}
+
+function handleRead(index) {
+    myLibrary[index].isRead = true;
+    updateLibrary();
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
